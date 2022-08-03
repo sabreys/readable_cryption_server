@@ -19,7 +19,7 @@ file_path = os.path.abspath(os.getcwd()) + "\library.db"
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
+app.config['SECRET_KEY'] = "sdfsdfdf23423fwdf^^SSFs'^2"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + file_path
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config["PROPAGATE_EXCEPTIONS"] = True
