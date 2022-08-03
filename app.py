@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import uuid
@@ -15,12 +15,11 @@ import secrets
 
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
-file_path = os.path.abspath(os.getcwd()) + "\library.db"
-print(file_path)
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "sdfsdfdf23423fwdf^^SSFs'^2"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + file_path
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./library.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config["PROPAGATE_EXCEPTIONS"] = True
 
@@ -152,7 +151,7 @@ def get_all_users(user):
 
 @app.route("/")
 def index(_):
-    return "<p>Readable Cryption uygulamasına hoşgeldiniz \n  /</p>"
+    return 'Hello Sammy!'
 
 
 @app.route("/encrypt")
