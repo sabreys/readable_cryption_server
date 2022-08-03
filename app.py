@@ -12,8 +12,7 @@ import cryption
 import logging
 import secrets
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = secrets.secret_key
+
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
 file_path = os.path.abspath(os.getcwd()) + "\library.db"
