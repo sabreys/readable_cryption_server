@@ -151,7 +151,6 @@ def get_all_users(user):
 
 
 @app.route("/")
-@token_required
 def index(_):
     return "<p>Readable Cryption uygulamasına hoşgeldiniz \n  /</p>"
 
