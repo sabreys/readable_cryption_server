@@ -49,6 +49,22 @@ class FailedLogin(db.Model):
     ip = db.Column(db.String(20))
     time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
+@app.route('/checktoken', methods=['GET'])
+def check_token():
+    token = None
+    if 'x-access-tokens' in request.headers:
+        token = request.headers['x-access-tokens']
+
+    if not token:
+        return make_response('Token eksik', 401, {'WWW.Authentication': 'Basic realm: "401 Unauthorized"'})
+
+    try:
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+    except:
+        return 0
+
+    return 1
+
 
 def token_required(f):
     @wraps(f)
