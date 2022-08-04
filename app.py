@@ -60,13 +60,13 @@ def token_required(f):
             token = request.headers['x-access-tokens']
 
         if not token:
-            return jsonify({'message': 'eksik token'})
+            return make_response('Token eksik', 401, {'WWW.Authentication': 'Basic realm: "401 Unauthorized"'})
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
             current_user = Users.query.filter_by(public_id=data['public_id']).first()
         except:
-            return jsonify({'message': 'Geçersiz token'})
+            return make_response('Geçersiz token', 401, {'WWW.Authentication': 'Basic realm: "401 Unauthorized"'})
 
         return f(current_user, *args, **kwargs)
 
