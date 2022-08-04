@@ -18,7 +18,7 @@ logging.basicConfig(filename='error.log', level=logging.FATAL)
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = "sdfsdfdf23423fwdf^^SSFs'^2"
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./library.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config["PROPAGATE_EXCEPTIONS"] = True
