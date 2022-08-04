@@ -61,9 +61,9 @@ def check_token():
     try:
         data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
     except:
-        return 0
+        return "0"
 
-    return 1
+    return "1"
 
 
 def token_required(f):
