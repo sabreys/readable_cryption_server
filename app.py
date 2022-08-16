@@ -123,6 +123,7 @@ def check_user_exist(data):
 
 @app.route('/register', methods=['GET', 'POST'])
 def signup_user():
+    print(request.get_json())
     data = request.get_json()
     ip = request.remote_addr
     if (check_user_exist(data)):
