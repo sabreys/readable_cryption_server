@@ -13,10 +13,14 @@ from functools import wraps
 import cryption
 import logging
 import secrets
+from flask_cors import CORS, cross_origin
 
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
 app = Flask(__name__, template_folder="web",)
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./library.db'
@@ -51,8 +55,6 @@ class FailedLogin(db.Model):
 
 FLUTTER_WEB_APP = 'web'
 
-
-
 @app.route('/web/<path:name>')
 def return_flutter_doc(name):
 
@@ -66,6 +68,7 @@ def return_flutter_doc(name):
     return send_from_directory(DIR_NAME, datalist[-1])
 
 @app.route('/')
+@cross_origin()
 def render_page_web():
     return render_template('index.html')
 
