@@ -4,6 +4,8 @@ from enum import Enum
 from flask import Flask, request, jsonify, make_response, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import send_from_directory
+from flask import render_template
 import uuid
 import jwt
 import datetime
@@ -48,9 +50,26 @@ class FailedLogin(db.Model):
     time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
 
-@app.route('/')
+
+
+FLUTTER_WEB_APP = 'templates'
+
+@app.route('/web/')
 def render_page_web():
-    return render_template('/index.html')
+    return render_template('index.html')
+
+
+@app.route('/web/<path:name>')
+def return_flutter_doc(name):
+
+    datalist = str(name).split('/')
+    DIR_NAME = FLUTTER_WEB_APP
+
+    if len(datalist) > 1:
+        for i in range(0, len(datalist) - 1):
+            DIR_NAME += '/' + datalist[i]
+
+    return send_from_directory(DIR_NAME, datalist[-1])
 
 
 @app.route('/checktoken', methods=['GET'])
