@@ -50,7 +50,7 @@ class FailedLogin(db.Model):
 
 @app.route('/')
 def render_page_web():
-    return render_template('index.html')
+    return render_template('/index.html')
 
 
 @app.route('/checktoken', methods=['GET'])
@@ -169,9 +169,7 @@ def get_all_users(user):
     return jsonify({'users': result})
 
 
-@app.route("/")
-def index(_):
-    return 'Hello Sammy!'
+
 
 
 @app.route("/encrypt")
