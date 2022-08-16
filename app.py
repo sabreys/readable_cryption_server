@@ -20,6 +20,7 @@ logging.basicConfig(filename='error.log', level=logging.FATAL)
 app = Flask(__name__, template_folder="web",)
 
 cors = CORS(app)
+
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
@@ -68,7 +69,6 @@ def return_flutter_doc(name):
     return send_from_directory(DIR_NAME, datalist[-1])
 
 @app.route('/')
-@cross_origin()
 def render_page_web():
     return render_template('index.html')
 
@@ -77,6 +77,7 @@ def render_page_web():
 
 
 @app.route('/checktoken', methods=['GET'])
+@cross_origin()
 def check_token():
     token = None
     if 'x-access-tokens' in request.headers:
@@ -122,6 +123,7 @@ def check_user_exist(data):
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@cross_origin()
 def signup_user():
     data = request.get_json()
     ip = request.remote_addr
@@ -139,6 +141,7 @@ def signup_user():
 
 
 @app.route('/login', methods=['GET', 'POST'])
+@cross_origin()
 def login_user():
     auth = request.authorization
     ip = request.remote_addr
@@ -166,6 +169,7 @@ def login_user():
 
 
 @app.route('/users', methods=['GET'])
+@cross_origin()
 @token_required
 def get_all_users(user):
     ip = request.remote_addr
@@ -196,6 +200,7 @@ def get_all_users(user):
 
 
 @app.route("/encrypt")
+@cross_origin()
 @token_required
 def encrypt(user):
     ip = request.remote_addr
@@ -208,6 +213,7 @@ def encrypt(user):
 
 @app.route("/decrypt")
 @token_required
+@cross_origin()
 def decrypt(user):
     ip = request.remote_addr
     data = request.get_json()
