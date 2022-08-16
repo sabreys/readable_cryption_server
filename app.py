@@ -56,7 +56,7 @@ class FailedLogin(db.Model):
 
 FLUTTER_WEB_APP = 'web'
 
-@app.route('/web/<path:name>')
+@app.route('/<path:name>')
 def return_flutter_doc(name):
 
     datalist = str(name).split('/')
