@@ -65246,7 +65246,7 @@ a8M(a,b){var s=0,r=A.Z(t.H),q=this,p,o,n,m,l,k,j
 var $async$l5=A.a_(function(c,d){if(c===1)return A.W(d,r)
 while(true)switch(s){case 0:o=B.B.ghR().ck(b+":"+a)
 n=t.N
-m=A.ax(["Authorization","Basic "+B.lk.ghR().ck(o)],n,n)
+m=A.ax(["Authorization","Basic "+B.lk.ghR().ck(o),"Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],n,n)
 l=A.Iy("GET",A.i7("https://sabrey.tech/login",0,null))
 l.r.I(0,m)
 s=2
@@ -65270,7 +65270,7 @@ qT(a,b){return this.O8(a,b)},
 O8(a,b){var s=0,r=A.Z(t.H),q=this,p,o,n
 var $async$qT=A.a_(function(c,d){if(c===1)return A.W(d,r)
 while(true)switch(s){case 0:p=t.N
-o=A.ax(["Content-Type","application/json"],p,p)
+o=A.ax(["Content-Type","application/json","Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],p,p)
 n=A.Iy("GET",A.i7("https://sabrey.tech/register",0,null))
 n.szr(0,B.ai.hb(A.ax(["name",b,"password",a],p,p)))
 n.r.I(0,o)
@@ -65324,7 +65324,7 @@ return A.U(p.l5(n,o),$async$kQ)
 case 6:case 4:o=p.a
 o.toString
 n=t.N
-m=A.ax(["x-access-tokens",o,"Content-Type","application/json"],n,n)
+m=A.ax(["x-access-tokens",o,"Content-Type","application/json","Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],n,n)
 l=A.Iy("GET",A.i7("https://sabrey.tech/encrypt",0,null))
 l.szr(0,B.ai.hb(A.ax(["passphrase",b,"message",a],n,t.z)))
 l.r.I(0,m)
@@ -65362,7 +65362,7 @@ return A.U(p.l5(n,o),$async$kJ)
 case 6:case 4:o=p.a
 o.toString
 n=t.N
-m=A.ax(["x-access-tokens",o,"Content-Type","application/json"],n,n)
+m=A.ax(["x-access-tokens",o,"Content-Type","application/json","Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],n,n)
 l=A.Iy("GET",A.i7("https://sabrey.tech/decrypt",0,null))
 l.szr(0,B.ai.hb(A.ax(["passphrase",b,"message",a],n,t.z)))
 l.r.I(0,m)
@@ -65390,7 +65390,7 @@ while(true)switch(s){case 0:k=p.a
 if(k==null){q=!1
 s=1
 break}o=t.N
-n=A.ax(["x-access-tokens",k],o,o)
+n=A.ax(["x-access-tokens",k,"Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],o,o)
 m=A.Iy("GET",A.i7("https://sabrey.tech/checktoken",0,null))
 m.r.I(0,n)
 s=3
