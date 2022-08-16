@@ -16,7 +16,7 @@ import secrets
 
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
-app = Flask(__name__, template_folder="web")
+app = Flask(__name__, template_folder="web",)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./library.db'
