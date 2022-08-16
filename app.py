@@ -12,11 +12,9 @@ import cryption
 import logging
 import secrets
 
-
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder="web")
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./library.db'
@@ -48,6 +46,12 @@ class FailedLogin(db.Model):
     userId = db.Column(db.Integer)
     ip = db.Column(db.String(20))
     time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
+
+
+@app.route('/')
+def render_page_web():
+    return render_template('index.html')
+
 
 @app.route('/checktoken', methods=['GET'])
 def check_token():
@@ -102,7 +106,6 @@ def signup_user():
         app.logger.info('FAIL : %s failed to create user. User exist : %s ', ip, data['name'])
         return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
 
-
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     new_user = Users(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False, ip=ip)
@@ -135,7 +138,8 @@ def login_user():
     db.session.add(FailedLogin(userId=user.public_id, ip=request.remote_addr))
     db.session.commit()
     app.logger.info('FAIL : %s Yanlıs sifre ip: %s ', request.authorization.username, ip, )
-    return make_response('Şifre ya da  kullanıcı adı yanlış', 400, {'WWW.Authentication': 'Basic realm: "login required"'})
+    return make_response('Şifre ya da  kullanıcı adı yanlış', 400,
+                         {'WWW.Authentication': 'Basic realm: "login required"'})
 
 
 @app.route('/users', methods=['GET'])
