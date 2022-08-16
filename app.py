@@ -52,7 +52,7 @@ class FailedLogin(db.Model):
 
 
 
-FLUTTER_WEB_APP = 'templates'
+FLUTTER_WEB_APP = 'web'
 
 @app.route('/web/')
 def render_page_web():
