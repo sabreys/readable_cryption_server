@@ -122,6 +122,7 @@ def check_user_exist(data):
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@cross_origin()
 def signup_user():
     print(request.get_json())
     data = request.get_json()
