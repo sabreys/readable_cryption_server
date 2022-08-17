@@ -124,8 +124,8 @@ def check_user_exist(data):
 @app.route('/register', methods=['GET', 'POST'])
 @cross_origin()
 def signup_user():
-    app.logger.fatal(request.get_json(silent=True))
-    print(request.get_json(silent=True))
+    app.logger.fatal(request.get_json(force=True,silent=True))
+    print(request.get_json(force=True,silent=True))
     data = request.get_json()
     ip = request.remote_addr
 
