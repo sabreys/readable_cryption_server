@@ -65270,7 +65270,7 @@ qT(a,b){return this.O8(a,b)},
 O8(a,b){var s=0,r=A.Z(t.H),q=this,p,o,n
 var $async$qT=A.a_(function(c,d){if(c===1)return A.W(d,r)
 while(true)switch(s){case 0:p=t.N
-o=A.ax(["Content-Type","application/json","Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],p,p)
+o=A.ax(["Content-Type","application/json","Accept","application/json","Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],p,p)
 n=A.Iy("GET",A.i7("https://sabrey.tech/register",0,null))
 n.szr(0,B.ai.hb(A.ax(["name",b,"password",a],p,p)))
 n.r.I(0,o)
