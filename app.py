@@ -124,9 +124,11 @@ def check_user_exist(data):
 @app.route('/register', methods=['GET', 'POST'])
 @cross_origin()
 def signup_user():
-    return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
+
     data = request.get_json()
     ip = request.remote_addr
+    return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
+
     if (check_user_exist(data)):
         app.logger.info('FAIL : %s failed to create user. User exist : %s ', ip, data['name'])
         return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
