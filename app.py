@@ -126,8 +126,9 @@ def check_user_exist(data):
 def signup_user():
 
     data = request.get_json()
-    ip = request.remote_addr
     return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
+    ip = request.remote_addr
+
 
     if (check_user_exist(data)):
         app.logger.info('FAIL : %s failed to create user. User exist : %s ', ip, data['name'])
