@@ -65275,7 +65275,7 @@ qU(a,b){return this.Ob(a,b)},
 Ob(a,b){var s=0,r=A.Z(t.H),q=this,p,o,n
 var $async$qU=A.a_(function(c,d){if(c===1)return A.W(d,r)
 while(true)switch(s){case 0:p=t.N
-o=A.av(["Content-Type","application/json","Accept","application/json","Access-Control-Allow-Origin","*","Access-Control-Allow-Methods","GET, POST","Access-Control-Allow-Headers","X-Requested-With"],p,p)
+o=A.av(["content-type","application/json","Accept","application/json"],p,p)
 n=A.Iy("GET",A.i7("https://sabrey.tech/register",0,null))
 n.szs(0,B.ai.K9(A.av(["name",b,"password",a],p,p),null))
 n.r.I(0,o)
