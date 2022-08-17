@@ -125,7 +125,7 @@ def check_user_exist(data):
 @cross_origin()
 def signup_user():
 
-    data = request.get_json(force=True)
+    data = request.get_json(force=True ,silent=True)
     ip = request.remote_addr
 
 
