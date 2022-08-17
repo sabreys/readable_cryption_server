@@ -125,8 +125,7 @@ def check_user_exist(data):
 @cross_origin()
 def signup_user():
 
-    data = request.get_json()
-    return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
+    data = request.get_json(force=True)
     ip = request.remote_addr
 
 
