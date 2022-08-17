@@ -124,7 +124,7 @@ def check_user_exist(data):
 @app.route('/register', methods=['GET', 'POST'])
 @cross_origin()
 def signup_user():
-    print(request.get_json())
+    return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
     data = request.get_json()
     ip = request.remote_addr
     if (check_user_exist(data)):
