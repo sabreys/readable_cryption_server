@@ -17,11 +17,9 @@ from flask_cors import CORS, cross_origin
 
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
-app = Flask(__name__, template_folder="web",)
+app = Flask(__name__, template_folder="web", )
 
 cors = CORS(app)
-
-
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./library.db'
@@ -54,11 +52,12 @@ class FailedLogin(db.Model):
     ip = db.Column(db.String(20))
     time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
+
 FLUTTER_WEB_APP = 'web'
+
 
 @app.route('/<path:name>')
 def return_flutter_doc(name):
-
     datalist = str(name).split('/')
     DIR_NAME = FLUTTER_WEB_APP
 
@@ -68,12 +67,10 @@ def return_flutter_doc(name):
 
     return send_from_directory(DIR_NAME, datalist[-1])
 
+
 @app.route('/')
 def render_page_web():
     return render_template('index.html')
-
-
-
 
 
 @app.route('/checktoken', methods=['GET'])
@@ -124,11 +121,8 @@ def check_user_exist(data):
 @app.route('/register', methods=['GET', 'POST'])
 @cross_origin()
 def signup_user():
-    app.logger.fatal(request.get_json(force=True,silent=True))
-    print(request.get_json(force=True,silent=True))
     data = request.get_json()
     ip = request.remote_addr
-
 
     if (check_user_exist(data)):
         app.logger.info('FAIL : %s failed to create user. User exist : %s ', ip, data['name'])
@@ -197,10 +191,7 @@ def get_all_users(user):
     return jsonify({'users': result})
 
 
-
-
-
-@app.route("/encrypt")
+@app.route("/encrypt", methods=['GET', 'POST'])
 @token_required
 def encrypt(user):
     ip = request.remote_addr
@@ -211,7 +202,7 @@ def encrypt(user):
     return cryption.encrypt_and_encode(data["passphrase"], data["message"])
 
 
-@app.route("/decrypt")
+@app.route("/decrypt", methods=['GET', 'POST'])
 @token_required
 def decrypt(user):
     ip = request.remote_addr
