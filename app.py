@@ -128,6 +128,7 @@ def signup_user():
         app.logger.info('FAIL : %s failed to create user. User exist : %s ', ip, data['name'])
         return make_response('Kullanıcı mevcut', 409, {'WWW.Authentication': 'Basic realm: "login required"'})
 
+
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     new_user = Users(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False, ip=ip)
@@ -194,6 +195,12 @@ def get_all_users(user):
 @app.route("/encrypt", methods=['GET', 'POST'])
 @token_required
 def encrypt(user):
+    """ Encrypt json request body.
+        Required params in body:
+        passphrase and message
+        Required param in function:
+        user for request sender information.
+    """
     ip = request.remote_addr
     data = request.get_json()
     db.session.add(Logs(userId=user.public_id, ip=request.remote_addr, type=0))
@@ -205,6 +212,12 @@ def encrypt(user):
 @app.route("/decrypt", methods=['GET', 'POST'])
 @token_required
 def decrypt(user):
+    """ Decrypt json request body.
+        Required params in body:
+        passphrase and message
+        Required param in function:
+        user for request sender information.
+    """
     ip = request.remote_addr
     data = request.get_json()
     db.session.add(Logs(userId=user.public_id, ip=request.remote_addr, type=1))
