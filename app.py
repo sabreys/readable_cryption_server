@@ -15,6 +15,7 @@ import logging
 import secrets
 from flask_cors import CORS, cross_origin
 
+
 logging.basicConfig(filename='error.log', level=logging.FATAL)
 
 app = Flask(__name__, template_folder="web", )
