@@ -59,6 +59,8 @@ FLUTTER_WEB_APP = 'web'
 
 @app.route('/<path:name>')
 def return_flutter_doc(name):
+    """ serves Flutter app files from web path.
+    """
     datalist = str(name).split('/')
     DIR_NAME = FLUTTER_WEB_APP
 
@@ -71,11 +73,18 @@ def return_flutter_doc(name):
 
 @app.route('/')
 def render_page_web():
+    """ serves Flutter web application.
+    """
     return render_template('index.html')
 
 
 @app.route('/checktoken', methods=['GET'])
 def check_token():
+    """ checks token is still valid.
+        Required params in header:
+        x-access-tokens
+        return 0 if it's expired, return 1 is valid
+    """
     token = None
     if 'x-access-tokens' in request.headers:
         token = request.headers['x-access-tokens']
@@ -92,6 +101,10 @@ def check_token():
 
 
 def token_required(f):
+    """ checks token is valid.
+        Required params in function:
+        function to execute after validation
+    """
     @wraps(f)
     def decorator(*args, **kwargs):
 
@@ -122,6 +135,11 @@ def check_user_exist(data):
 @app.route('/register', methods=['GET', 'POST'])
 @cross_origin()
 def signup_user():
+    """ Sign up function.
+        Required params in body:
+        name, password
+        returns error or success message.
+    """
     data = request.get_json()
     ip = request.remote_addr
 
@@ -141,6 +159,11 @@ def signup_user():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
+    """ Login function to get JWT token.
+        Required params in header:
+        Basic auth
+        returns JWT token.
+    """
     auth = request.authorization
     ip = request.remote_addr
     if not auth or not auth.username or not auth.password:
@@ -169,6 +192,13 @@ def login_user():
 @app.route('/users', methods=['GET'])
 @token_required
 def get_all_users(user):
+    """ Return all users(Only Admin user)
+        Required params in header:
+        x-access-tokens JWT token
+        Required param in function:
+        user for request sender information.
+        returns all users.
+    """
     ip = request.remote_addr
     if (not user.admin):
         app.logger.fatal('FAIL!!! : %s  YETKISIZ ISTEK DENEMESI ip: %s ', user.name, ip, )
@@ -197,10 +227,13 @@ def get_all_users(user):
 @token_required
 def encrypt(user):
     """ Encrypt json request body.
+        Required params in header:
+        x-access-tokens JWT token
         Required params in body:
         passphrase and message
         Required param in function:
         user for request sender information.
+        returns encrypted data.
     """
     ip = request.remote_addr
     data = request.get_json()
@@ -214,10 +247,13 @@ def encrypt(user):
 @token_required
 def decrypt(user):
     """ Decrypt json request body.
+        Required params in header:
+        x-access-tokens JWT token
         Required params in body:
         passphrase and message
         Required param in function:
         user for request sender information.
+        returns decrypted data.
     """
     ip = request.remote_addr
     data = request.get_json()
