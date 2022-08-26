@@ -30,6 +30,8 @@ app.config["PROPAGATE_EXCEPTIONS"] = True
 db = SQLAlchemy(app)
 
 
+
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.Integer)
@@ -189,38 +191,38 @@ def login_user():
                          {'WWW.Authentication': 'Basic realm: "login required"'})
 
 
-@app.route('/users', methods=['GET'])
-@token_required
-def get_all_users(user):
-    """ Return all users(Only Admin user)
-        Required params in header:
-        x-access-tokens JWT token
-        Required param in function:
-        user for request sender information.
-        returns all users.
-    """
-    ip = request.remote_addr
-    if (not user.admin):
-        app.logger.fatal('FAIL!!! : %s  YETKISIZ ISTEK DENEMESI ip: %s ', user.name, ip, )
-        return make_response('Yetki Yok', 405, {'WWW.Authentication': 'Basic realm: "login required"'})
-
-    users = Users.query.all()
-
-    result = []
-
-    for user in users:
-        user_data = {}
-        user_data['public_id'] = user.public_id
-        user_data['name'] = user.name
-        user_data['password'] = user.password
-        user_data['admin'] = user.admin
-        user_data['ip'] = user.ip
-
-        result.append(user_data)
-
-    app.logger.info('SUCCESS : %s Tum kullanıcıları okudu ip: %s ', user.name, ip, )
-
-    return jsonify({'users': result})
+# @app.route('/users', methods=['GET'])
+# @token_required
+# def get_all_users(user):
+#     """ Return all users(Only Admin user)
+#         Required params in header:
+#         x-access-tokens JWT token
+#         Required param in function:
+#         user for request sender information.
+#         returns all users.
+#     """
+#     ip = request.remote_addr
+#     if (not user.admin):
+#         app.logger.fatal('FAIL!!! : %s  YETKISIZ ISTEK DENEMESI ip: %s ', user.name, ip, )
+#         return make_response('Yetki Yok', 405, {'WWW.Authentication': 'Basic realm: "login required"'})
+#
+#     users = Users.query.all()
+#
+#     result = []
+#
+#     for user in users:
+#         user_data = {}
+#         user_data['public_id'] = user.public_id
+#         user_data['name'] = user.name
+#         user_data['password'] = user.password
+#         user_data['admin'] = user.admin
+#         user_data['ip'] = user.ip
+#
+#         result.append(user_data)
+#
+#     app.logger.info('SUCCESS : %s Tum kullanıcıları okudu ip: %s ', user.name, ip, )
+#
+#     return jsonify({'users': result})
 
 
 @app.route("/encrypt", methods=['GET', 'POST'])
