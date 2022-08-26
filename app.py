@@ -169,11 +169,10 @@ def login_user():
     auth = request.authorization
     ip = request.remote_addr
     if not auth or not auth.username or not auth.password:
-        app.logger.info('FAIL : %s Authorization hatasi eksik alan ip: %s ', request.authorization.username, ip, )
+        app.logger.info('FAIL : - Authorization hatasi eksik alan ip: %s ', ip, )
         return make_response('Eksik Veri', 400, {'WWW.Authentication': 'Basic realm: "login required"'})
 
     user = Users.query.filter_by(name=auth.username).first()
-
     if not user or not user.name or not user.password:
         app.logger.info('FAIL : %s Boyle bir kullanici yok ip: %s ', request.authorization.username, ip, )
         return make_response('Böyle bir kullanıcı yok', 400, {'WWW.Authentication': 'Basic realm: "login required"'})
